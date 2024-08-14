@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Descuentos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #a8e063, #56ab2f);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Calculadora de Descuentos</h2>
+        <form id="frm">
+            <div class="mb-3">
+                <label for="product1" class="form-label">Producto 1</label>
+                <input type="number" class="form-control mb-2" id="quantity1" placeholder="Cantidad" required>
+                <input type="number" class="form-control" id="cost1" placeholder="Costo" required>
+            </div>
+            <div class="mb-3">
+                <label for="product2" class="form-label">Producto 2</label>
+                <input type="number" class="form-control mb-2" id="quantity2" placeholder="Cantidad" required>
+                <input type="number" class="form-control" id="cost2" placeholder="Costo" required>
+            </div>
+            <div class="mb-3">
+                <label for="product3" class="form-label">Producto 3</label>
+                <input type="number" class="form-control mb-2" id="quantity3" placeholder="Cantidad" required>
+                <input type="number" class="form-control" id="cost3" placeholder="Costo" required>
+            </div>
+            <div class="mb-3">
+                <label for="product4" class="form-label">Producto 4</label>
+                <input type="number" class="form-control mb-2" id="quantity4" placeholder="Cantidad" required>
+                <input type="number" class="form-control" id="cost4" placeholder="Costo" required>
+            </div>
+            <div class="mb-3">
+                <label for="product5" class="form-label">Producto 5</label>
+                <input type="number" class="form-control mb-2" id="quantity5" placeholder="Cantidad" required>
+                <input type="number" class="form-control" id="cost5" placeholder="Costo" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-2">Calcular Descuento</button>
+            <button type="button" class="btn btn-secondary w-100" id="clearButton">Limpiar</button>
+        </form>
+        <div id="result" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.getElementById('frm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const quantity1 = parseFloat(document.getElementById('quantity1').value) || 0;
+            const cost1 = parseFloat(document.getElementById('cost1').value) || 0;
+            const quantity2 = parseFloat(document.getElementById('quantity2').value) || 0;
+            const cost2 = parseFloat(document.getElementById('cost2').value) || 0;
+            const quantity3 = parseFloat(document.getElementById('quantity3').value) || 0;
+            const cost3 = parseFloat(document.getElementById('cost3').value) || 0;
+            const quantity4 = parseFloat(document.getElementById('quantity4').value) || 0;
+            const cost4 = parseFloat(document.getElementById('cost4').value) || 0;
+            const quantity5 = parseFloat(document.getElementById('quantity5').value) || 0;
+            const cost5 = parseFloat(document.getElementById('cost5').value) || 0;
+
+            const total = (quantity1 * cost1) + (quantity2 * cost2) + (quantity3 * cost3) + (quantity4 * cost4) + (quantity5 * cost5);
+            let discount = 0;
+
+            if (total >= 13000) {
+                discount = 40;
+            } else if (total >= 9000) {
+                discount = 30;
+            } else if (total >= 5000) {
+                discount = 20;
+            } else if (total >= 1000) {
+                discount = 10;
+            }
+
+            const discountAmount = (total * discount) / 100;
+            const finalPrice = total - discountAmount;
+
+            document.getElementById('result').innerHTML = `
+                <h4>Total: $${total}</h4>
+                <h4>Descuento: ${discount}%</h4>
+                <h4>Precio Final: $${finalPrice.toFixed(2)}</h4>
+            `;
+        });
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            document.getElementById('frm').reset();
+            document.getElementById('result').innerHTML = '';
+        });
+    </script>
+</body>
+</html>
